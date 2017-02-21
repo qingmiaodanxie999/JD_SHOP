@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:icon="@mipmap/ic_launcher"
+        android:orderInCategory="100"
+        android:title="add"
+        android:showAsAction="ifRoom"
+        android:id="@+id/id_action_add"></item>
+    <item android:icon="@mipmap/ic_launcher"
+        android:orderInCategory="100"
+        android:title="add"
+        android:showAsAction="never"
+        android:id="@+id/id_action_gridview"/>
+    <item android:icon="@mipmap/ic_launcher"
+        android:orderInCategory="100"
+        android:title="add"
+        android:showAsAction="never"
+        android:id="@+id/id_action_listview"/>
+</menu>
