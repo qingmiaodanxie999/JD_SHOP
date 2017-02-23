@@ -5,4 +5,7 @@
 
     <dimen name="smallButtonHeight">32.0dip</dimen>
     <dimen name="buttonCornerSize">2.0dip</dimen>
+    <dimen name="normalButtonHeight">20dip</dimen>
+    <dimen name="largePadding">2.0dip</dimen>
+    <dimen name="bigButtonSize">30dip</dimen>
 </resources>

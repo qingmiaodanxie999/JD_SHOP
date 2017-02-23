@@ -35,6 +35,10 @@ public abstract class SpotsCallBack<T> extends BaseCallBack<T> {
     }
 
     @Override
+    public void onRequestBefore(Request request) {
+        showDialog();
+    }
+    @Override
     public void onFailure(Request request, IOException e) {
         dissmissDialog();
     }

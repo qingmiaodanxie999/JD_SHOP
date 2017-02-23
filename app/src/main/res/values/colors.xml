@@ -9,4 +9,8 @@
     <color name="gainsboro">#00ff55</color>
     <color name="gainsboro_press">#ff0022</color>
     <color name="firebrick">#b22222</color>
+    <color name="red_btn_color_normal">#ff5454</color>
+    <color name="red_btn_color_pressed">#dcdcdc</color>
+    <color name="red_btn_color_disable">#7ff545</color>
+    <color name="white_color_disable">#7fffffff</color>
 </resources>

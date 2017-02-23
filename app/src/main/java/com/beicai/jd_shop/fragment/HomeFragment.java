@@ -10,6 +10,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.beicai.jd_shop.R;
 import com.beicai.jd_shop.adapter.HomeCategoryAdapter;
 import com.beicai.jd_shop.adapter.decoration.DividerItemDecoration;
 import com.beicai.jd_shop.entity.Banner;
@@ -27,9 +29,13 @@ import com.daimajia.slider.library.SliderTypes.TextSliderView;
 import com.daimajia.slider.library.Tricks.ViewPagerEx;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.List;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.FormBody;
@@ -45,9 +51,12 @@ import static android.content.ContentValues.TAG;
  */
 public class HomeFragment extends Fragment {
     private Context mContext;
-    private SliderLayout sliderLayout;
-    private PagerIndicator mIndicator;
-    private RecyclerView mRecyclerView;
+    @BindView(R.id.slider)
+     SliderLayout sliderLayout;
+    @BindView(R.id.custom_indicator)
+     PagerIndicator mIndicator;
+    @BindView(R.id.home_rv)
+     RecyclerView mRecyclerView;
     private HomeCategoryAdapter mAdapter;
     private Gson mGson = new Gson();
     private List<Banner> mBanners;
@@ -57,10 +66,11 @@ public class HomeFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_home, null);
+        View v = inflater.inflate(R.layout.fragment_home, container,false);
+        ButterKnife.bind(this,v);
         mContext = getActivity();
-        sliderLayout = (SliderLayout) v.findViewById(R.id.slider);
-        mIndicator = (PagerIndicator) v.findViewById(R.id.custom_indicator);
+//        sliderLayout = (SliderLayout) v.findViewById(R.id.slider);
+//        mIndicator = (PagerIndicator) v.findViewById(R.id.custom_indicator);
         okHttpHelper = OkHttpHelper.getInstance();
         requestImage();
         initRecyclerView(v);
@@ -68,7 +78,7 @@ public class HomeFragment extends Fragment {
     }
 
     private void initRecyclerView(View v) {
-        mRecyclerView = (RecyclerView) v.findViewById(R.id.home_rv);
+//        mRecyclerView = (RecyclerView) v.findViewById(R.id.home_rv);
         okHttpHelper.get(Contants.API.CAMPAIGN_HOME,
                 new BaseCallBack<List<HomeCampain>>() {
                     @Override
@@ -85,11 +95,6 @@ public class HomeFragment extends Fragment {
                     public void onSuccess(Response response, List<HomeCampain> homeCampains) {
                         initData(homeCampains);
                     }
-
-//            @Override
-//            public void onSuccess(Response response, Object o) {
-//                initData(homeCampains);
-//            }
 
                     @Override
                     public void onError(Response response, int code, Exception e) {
@@ -128,7 +133,8 @@ public class HomeFragment extends Fragment {
         mAdapter = new HomeCategoryAdapter(homeCampains,mContext);
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this.getActivity()));
-        mRecyclerView.addItemDecoration(new DividerItemDecoration());
+        mRecyclerView.addItemDecoration(new DividerItemDecoration(
+                getContext(),DividerItemDecoration.VERTICAL_LIST));
         mAdapter.setOnCampaignClickListener(new HomeCategoryAdapter.OnCampaignClickListener() {
             @Override
             public void onClick(View view, Campaign campaign) {
@@ -195,16 +201,6 @@ public class HomeFragment extends Fragment {
 //        String url = "http://101.200.167.75:8080/phoenixshop/campaign/recommend";
         String url = Contants.API.BANNER + "?type=1";  //phoenixshop/banner/query?type=1";
         okHttpHelper.get(url, new SpotsCallBack<List<Banner>>(getContext()) {
-            @Override
-            public void onRequestBefore(Request request) {
-
-            }
-
-            @Override
-            public void onFailure(Request request, IOException e) {
-
-            }
-
             @Override
             public void onSuccess(Response response, List<Banner> banners) {
                 Log.e("TAG", "banner-----------" + banners.size());
